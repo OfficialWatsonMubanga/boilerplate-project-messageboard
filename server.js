@@ -33,7 +33,7 @@ app.use(helmet({
       scriptSrc: ["'self'", "trusted-cdn.com"] 
     }
   },
-  dnsPrefetchControl: false
+  dnsPrefetchControl: { allow: false }
 }));
 
 //Sample front-end

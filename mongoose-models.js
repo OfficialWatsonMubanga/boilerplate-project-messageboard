@@ -1,34 +1,29 @@
-const mongoose = require('mongoose')
-const {Schema} = mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-let default_date = new Date()
+const Reply_Schema = new Schema({
+  text: { type: String, required: true },
+  delete_password: { type: String, required: true },
+  created_on: { type: Date, default: Date.now },
+  reported: { type: Boolean, default: false },
+});
 
-let Reply_Schema= new Schema({
-  text: {type: String},
-  delete_password: {type: String},
-  created_on: {type: Date, default: default_date},
-  bumped_on: {type: Date, default: default_date},
-  reported: {type: Boolean, default: false},
-})
-const Reply = mongoose.model('Reply', Reply_Schema)
+const Thread_Schema = new Schema({
+  text: { type: String, required: true },
+  delete_password: { type: String, required: true },
+  reported: { type: Boolean, default: false },
+  created_on: { type: Date, default: Date.now },
+  bumped_on: { type: Date, default: Date.now },
+  replies: { type: [Reply_Schema], default: [] },
+});
 
-let Thread_Schema = new Schema({
-  text: {type: String},
-  delete_password: {type: String},
-  reported: {type: Boolean, default: false},
-  created_on: {type: Date, default: default_date},
-  bumped_on: {type: Date, default: default_date},
-  replies: {type: [Reply_Schema]},
-})
-const Thread = mongoose.model("Thread", Thread_Schema);
+const Board_Schema = new Schema({
+  name: { type: String, required: true },
+  threads: { type: [Thread_Schema], default: [] },
+});
 
-let Board_Schema = new Schema({
-  name: {type: String},
-  threads: { type: [Thread_Schema]},
-})
-
-const Board = mongoose.model("Board", Board_Schema);
-
-module.exports = Reply;
-module.exports = Thread;
-module.exports = Board;
+module.exports = {
+  Reply: mongoose.model('Reply', Reply_Schema),
+  Thread: mongoose.model('Thread', Thread_Schema),
+  Board: mongoose.model('Board', Board_Schema),
+};
