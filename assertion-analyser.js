@@ -28,7 +28,7 @@
 function objParser(str, init) {
   // finds objects, arrays, strings, and function arguments
   // between parens, because they may contain ','
-  var openSym = ['[', '{', '"', "'", '('];
+    var openSym = ['[', '{', '"', "'", '('];
   var closeSym = [']', '}', '"', "'", ')'];
   var type;
   for(var i = (init || 0); i < str.length; i++ ) {
